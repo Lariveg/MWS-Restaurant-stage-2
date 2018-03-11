@@ -140,6 +140,7 @@ createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
+  image.alt = restaurant.name;
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
@@ -158,9 +159,10 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
+  more.setAttribute('aria-label', `Click for more information about ${restaurant.name}.`);
+  li.append(more);
 
-  return li
+  return li;
 }
 
 /**
@@ -174,5 +176,15 @@ addMarkersToMap = (restaurants = self.restaurants) => {
       window.location.href = marker.url
     });
     self.markers.push(marker);
+  });
+}
+
+if ('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./service-worker.js', { scope: './' })
+  .then(function(registration){
+    console.log("Service Worker Registered");
+  })
+  .catch(function(err) {
+    console.log("Service Worker Failed to Register", err);
   });
 }
