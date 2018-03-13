@@ -1,6 +1,12 @@
 let restaurant;
 var map;
 
+const skipLink = document.querySelector(".skip-link");
+const name = document.getElementById('restaurant-name');
+skipLink.addEventListener('click', function(){
+  name.focus();
+});
+
 /**
  * Initialize Google map, called from HTML.
  */
@@ -49,7 +55,6 @@ fetchRestaurantFromURL = (callback) => {
  * Create restaurant HTML and add it to the webpage
  */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
-  const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
 
   const address = document.getElementById('restaurant-address');
@@ -57,7 +62,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img';
-  image.alt = restaurant.name;
+  image.alt = restaurant.name + " Restaurant";
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   const cuisine = document.getElementById('restaurant-cuisine');
