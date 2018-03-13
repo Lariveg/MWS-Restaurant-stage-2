@@ -1,4 +1,4 @@
-let cacheName = 'v2';
+let cacheName = 'v4';
 let cacheFiles = [
     './',
     './index.html',
@@ -7,7 +7,17 @@ let cacheFiles = [
     './js/main.js',
     './js/restaurant_info.js',
     './js/dbhelper.js',
-    './data/restaurants.json'
+    './data/restaurants.json',
+    './img/1.jpg',
+    './img/2.jpg',
+    './img/3.jpg',
+    './img/4.jpg',
+    './img/5.jpg',
+    './img/6.jpg',
+    './img/7.jpg',
+    './img/8.jpg',
+    './img/9.jpg',
+    './img/10.jpg'
 ];
 
 
@@ -51,9 +61,12 @@ self.addEventListener('fetch', function(e){
                 // Return response from cache if one exists, otherwise go to network
                 return (
                     response ||
-                    fetch(e.request, { mode: 'no-cors' }).then(response => {
+                    fetch(e.request).then(response => {
                         cache.put(e.request, response.clone());
                         return response;
+                    })
+                    .catch(function (err) {
+                        console.log("[ServiceWorker]Error fetching and caching", err);
                     })
                 );
             });
