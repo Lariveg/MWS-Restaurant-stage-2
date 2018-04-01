@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Normalize.css for better cross-browser consistency -->
+  <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+  <!-- Main CSS file -->
+  <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <title>Restaurant Info</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="inside">
+  <!-- Beginning header -->
+  <header>
+    <a href="#restaurant-container" class="skip-link">Skip Google Map</a>
+    <!-- Beginning nav -->
+    <nav>
+      <h1><a href="/">Restaurant Reviews</a></h1>
+      <ul id="breadcrumb" >
+        <li><a href="/">Home</a></li>
+      </ul>
+    </nav>
+    <!-- Beginning breadcrumb -->
+
+    <!-- End breadcrumb -->
+    <!-- End nav -->
+  </header>
+  <!-- End header -->
+
+  <!-- Beginning main -->
+  <main id="maincontent">
+    <!-- Beginning map -->
+    <section id="map-container" title="Google Maps" role="application">
+      <div id="map"></div>
+    </section>
+    <!-- End map -->
+    <!-- Beginning restaurant -->
+    <section id="restaurant-container" tabindex="-1">
+      <h1 id="restaurant-name" tabindex="0"></h1>
+      <div id="restaurant-img-info">
+        <img id="restaurant-img">
+        <p id="restaurant-cuisine" tabindex="0"></p>
+      </div>
+      <div id="restaurant-detail-info">
+        <p id="restaurant-address" tabindex="0"></p>
+        <table id="restaurant-hours" tabindex="0"></table>
+      </div>
+    </section>
+    <!-- end restaurant -->
+    <!-- Beginning reviews -->
+    <section id="reviews-container">
+      <ul id="reviews-list"></ul>
+    </section>
+    <!-- End reviews -->
+  </main>
+  <!-- End main -->
+
+  <!-- Beginning footer -->
+  <footer id="footer">
+    Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
+  </footer>
+  <!-- End footer -->
+
+  <!-- Beginning scripts -->
+  <!-- Main javascript file -->
+  <script type="text/javascript" src="js/all.js"></script>
+  <!-- Google Maps -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkztJBGXVEEZPAtlOkFhUT1CrKSi1WJg4&libraries=places&callback=initMap"></script>
+  <!-- End scripts -->
+
+</body>
+
+</html>
