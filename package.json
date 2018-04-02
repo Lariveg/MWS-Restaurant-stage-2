@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "gulp-sourcemaps": "^2.6.4",
     "include-all": "^1.0.0",
     "rc": "1.0.1",
     "sails": "^0.12.13",

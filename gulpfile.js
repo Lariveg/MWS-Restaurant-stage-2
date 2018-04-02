@@ -6,6 +6,7 @@ var browserSync = require('browser-sync').create();
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
+var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('default', ['copy-html', 'copy-images', 'styles', 'scripts'], function() {
 
@@ -29,7 +30,6 @@ gulp.task('dist', [
 
 gulp.task('scripts', function() {
 	gulp.src('js/**/*.js')
-		.pipe(concat('all.js'))
 		.pipe(gulp.dest('dist/js'));
 });
 
