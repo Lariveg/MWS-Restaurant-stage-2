@@ -12,7 +12,7 @@ gulp.task('default', ['copy-html', 'copy-images', 'styles', 'scripts'], function
 
 	browserSync.init({
 		server: './dist',
-		
+		port: 8000
 	});
 
 	gulp.watch('sass/**/*.scss', ['styles']);
