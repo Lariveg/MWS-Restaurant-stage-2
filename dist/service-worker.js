@@ -1,4 +1,4 @@
-let cacheName = 'v10';
+let cacheName = 'v18';
 let cacheFiles = [
     './',
     './index.html',
@@ -27,7 +27,7 @@ self.addEventListener('install', function(e){
     e.waitUntil(
         caches.open(cacheName).then(function(cache){
             //console.log('Caching');
-            cache.addAll(cacheFiles);
+            return cache.addAll(cacheFiles);
         })
     )
 })
@@ -49,23 +49,25 @@ self.addEventListener('activate', function(e){
 
 self.addEventListener('fetch', function(e){
     //console.log('[ServiceWorker] Fetching', e.request.url);
-
-    e.respondWith(
-
-        caches.open(cacheName).then(cache => {
-            return cache.match(e.request).then(response => {
-                // Return response from cache if one exists, otherwise go to network
-                return (
-                    response ||
-                    fetch(e.request).then(response => {
-                        cache.put(e.request, response.clone());
-                        return response;
-                    })
-                    .catch(function (err) {
-                        console.log("[ServiceWorker]Error fetching and caching", err);
-                    })
-                );
-            });
-        })
-    );
+    if(e.request.method === "GET"){
+        e.respondWith(
+            
+            caches.open(cacheName).then(cache => {
+                return cache.match(e.request).then(response => {
+                    // Return response from cache if one exists, otherwise go to network
+                    return (
+                        response || 
+                        fetch(e.request).then(response => {
+                            cache.put(e.request, response.clone());
+                            return response;
+                        })
+                        .catch(function (err) {
+                            console.log("[ServiceWorker]Error fetching and caching", err);
+                        })
+                    );
+                });
+            })
+        );
+    }
+    
 })
