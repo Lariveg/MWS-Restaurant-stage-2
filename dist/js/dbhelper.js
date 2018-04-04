@@ -1,4 +1,4 @@
-import idb from 'js/idb.js';
+
 /**
  * Common database helper functions.
  */
