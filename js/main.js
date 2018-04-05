@@ -130,6 +130,15 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
     ul.append(createRestaurantHTML(restaurant));
   });
   addMarkersToMap();
+  /**
+   * Code for lazy loading of images
+   */
+  [].forEach.call(document.querySelectorAll('img[data-src]'), function(image) {
+    image.setAttribute('src', image.getAttribute('data-src'));
+    image.onload = function() {
+      image.removeAttribute('data-src');
+    };
+  });
 }
 
 /**
@@ -139,9 +148,10 @@ createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
   const image = document.createElement('img');
+  const imageSrc = DBHelper.imageUrlForRestaurant(restaurant);
   image.className = 'restaurant-img';
   image.alt = restaurant.name + " Restaurant";
-  image['data-src'] = DBHelper.imageUrlForRestaurant(restaurant);
+  image.setAttribute('data-src', imageSrc);
   li.append(image);
 
   const name = document.createElement('h1');
@@ -161,7 +171,6 @@ createRestaurantHTML = (restaurant) => {
   more.href = DBHelper.urlForRestaurant(restaurant);
   more.setAttribute('aria-label', `Click for more information about ${restaurant.name}.`);
   li.append(more);
-
   return li;
 }
 
@@ -189,9 +198,3 @@ if ('serviceWorker' in navigator){
   });
 }
 
-[].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
-	img.setAttribute('src', img.getAttribute('data-src'));
-	img.onload = function() {
-		img.removeAttribute('data-src');
-	};
-});

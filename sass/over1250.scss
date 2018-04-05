@@ -1,0 +1,16 @@
+@media screen and (min-width: 1250px) {
+    .filter-options h2 {
+      flex-grow: 1;
+      width: 30%;
+    }
+    .selects{
+      flex-grow: 2;
+    }
+    .filter-options {
+      text-align: center;
+      justify-content: center;
+    }
+    #restaurants-list li {
+      width: calc((100% - 282px)/3);
+    }
+  }
