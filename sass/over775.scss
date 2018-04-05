@@ -2,15 +2,19 @@
     .filter-options h2 {
       flex-grow: 1;
       width: 30%;
+      padding: 10px 0;
     }
     .selects {
+      flex-direction: row;
       display: flex;
-      padding-right: 80px;
+      width: 70%;
+      justify-content: flex-end;
     }
     .filter-options {
       display: flex;
       text-align: center;
-      padding: 10px 40px;
+      padding: 10px 0;
+      margin: 10px 0;
     }
     
     #restaurants-list li {

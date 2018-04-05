@@ -1,3 +1,5 @@
+ You need to run python server in dist folder.
+
 # Local Development API Server
 ## Usage
 #### Get Restaurants

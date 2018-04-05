@@ -1,4 +1,4 @@
-let cacheName = 'v23';
+let cacheName = 'v31';
 let cacheFiles = [
     './',
     './index.html',
@@ -8,6 +8,7 @@ let cacheFiles = [
     './js/restaurant_info.js',
     './js/dbhelper.js',
     './data/restaurants.json',
+    './service-worker.js',
     './img/1.webp',
     './img/2.webp',
     './img/3.webp',

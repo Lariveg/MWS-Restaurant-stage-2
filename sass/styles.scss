@@ -1,5 +1,9 @@
 
 /* CSS Document */
+html {
+  width: 100%;
+  box-sizing: border-box;
+}
 
 body,td,th,p{
 	font-family: Arial, Helvetica, sans-serif;
@@ -11,7 +15,8 @@ body {
   box-sizing: border-box;
 	background-color: #fdfdfd;
 	margin: 0;
-	position:relative;
+  position:relative;
+  width:100%;
 }
 ul, li {
 	font-family: Arial, Helvetica, sans-serif;
@@ -136,11 +141,14 @@ nav h1 a {
 }
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
   height: auto;
   background-color: #3397DB;
   text-align: center;
-  padding: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 .filter-options h2 {
   width: 100%;
@@ -151,8 +159,15 @@ nav h1 a {
   margin: auto;
   padding: 10px;
 }
+
+.selects {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
 .filter-options select {
-  display: block;
   background-color: white;
   border: 1px solid #fff;
   font-family: Arial,sans-serif;
