@@ -141,7 +141,7 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.alt = restaurant.name + " Restaurant";
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image['data-src'] = DBHelper.imageUrlForRestaurant(restaurant);
   li.append(image);
 
   const name = document.createElement('h1');
@@ -188,3 +188,10 @@ if ('serviceWorker' in navigator){
     console.log("Service Worker Failed to Register", err);
   });
 }
+
+[].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
+	img.setAttribute('src', img.getAttribute('data-src'));
+	img.onload = function() {
+		img.removeAttribute('data-src');
+	};
+});

@@ -1,0 +1,13 @@
+{
+    "name": "Restaurant Reviews",
+    "short_name": "RR",
+    "display": "standalone",
+    "start_url": "/",
+    "theme_color": "#252831",
+    "background_color": "#fff",
+    "description": "It provides info and reviews about restaurants in the city.",
+    "icons": [{
+      "src": "img/icons/restaurant_icon.svg",
+      "sizes": "48x48 72x72 96x96 128x128 256x256 512x512"
+    }]
+  }

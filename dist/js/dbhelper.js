@@ -203,7 +203,7 @@ class DBHelper {
     //The API does not return a picture for restaurant 10
     if(!restaurant.photograph) restaurant.photograph = 10;
 
-    return (`/img/${restaurant.photograph}.jpg`);
+    return (`/img/${restaurant.photograph}.webp`);
   }
 
   /**
