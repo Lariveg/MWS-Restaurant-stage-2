@@ -41,7 +41,7 @@ gulp.task('scripts-dist', function() {
 });
 
 gulp.task('copy-html', function() {
-	gulp.src('./*.html')
+	gulp.src(['./index.html', './restaurant.html'])
 		.pipe(gulp.dest('./dist'));
 });
 

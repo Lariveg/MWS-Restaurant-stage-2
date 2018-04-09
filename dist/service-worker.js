@@ -1,9 +1,10 @@
-let cacheName = 'v31';
+let cacheName = 'v38';
 let cacheFiles = [
     './',
     './index.html',
     './restaurant.html',
     './css/styles.css',
+    './js/lazyload.min.js',
     './js/main.js',
     './js/restaurant_info.js',
     './js/dbhelper.js',

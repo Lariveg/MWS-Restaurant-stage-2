@@ -133,12 +133,12 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   /**
    * Code for lazy loading of images
    */
-  [].forEach.call(document.querySelectorAll('img[data-src]'), function(image) {
-    image.setAttribute('src', image.getAttribute('data-src'));
-    image.onload = function() {
-      image.removeAttribute('data-src');
-    };
-  });
+  // [].forEach.call(document.querySelectorAll('img[data-src]'), function(image) {
+  //   image.setAttribute('src', image.getAttribute('data-src'));
+  //   image.onload = function() {
+  //     image.removeAttribute('data-src');
+  //   };
+  // });
 }
 
 /**
@@ -151,7 +151,10 @@ createRestaurantHTML = (restaurant) => {
   const imageSrc = DBHelper.imageUrlForRestaurant(restaurant);
   image.className = 'restaurant-img';
   image.alt = restaurant.name + " Restaurant";
-  image.setAttribute('data-src', imageSrc);
+  image.setAttribute('data-frz-src', imageSrc);
+  image.setAttribute('src', "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
+  image.setAttribute('onload', "lzld(this)");
+  image.setAttribute('onerror', "lzld(this)");
   li.append(image);
 
   const name = document.createElement('h1');
