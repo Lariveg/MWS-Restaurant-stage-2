@@ -1,4 +1,5 @@
  You need to run python server in dist folder.
+ There is also a gulpfile that serves the content on port 8000. To start it, you need to run gulp in the root directory. 
 
 # Local Development API Server
 ## Usage
