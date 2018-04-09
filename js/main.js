@@ -130,15 +130,6 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
     ul.append(createRestaurantHTML(restaurant));
   });
   addMarkersToMap();
-  /**
-   * Code for lazy loading of images
-   */
-  // [].forEach.call(document.querySelectorAll('img[data-src]'), function(image) {
-  //   image.setAttribute('src', image.getAttribute('data-src'));
-  //   image.onload = function() {
-  //     image.removeAttribute('data-src');
-  //   };
-  // });
 }
 
 /**
