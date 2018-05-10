@@ -1,6 +1,7 @@
 let restaurant;
 var map;
 
+//skip link for google maps
 const skipLink = document.querySelector(".skip-link");
 const name = document.getElementById('restaurant-name');
 skipLink.addEventListener('click', function(){
@@ -116,6 +117,51 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     ul.appendChild(createReviewHTML(review));
   });
   container.appendChild(ul);
+
+  createFormHTML();
+}
+
+/* <input type="text" id="username" name="name" placeholder="Name">
+<input type="text" id="rating" name="rating" placeholder="Rating">
+<input name="restaurant_id" value="">
+<textarea name="comments" id="comment" required rows="10" cols="50" placeholder="Write a review"></textarea>
+<input type="submit" value="Save"> */
+
+createFormHTML = () => {
+  const form = document.getElementById("form-review");
+
+  const name = document.createElement("input");
+  name.setAttribute("type", "text");
+  name.setAttribute("id", "username");
+  name.setAttribute("name", "name");
+  name.setAttribute("placeholder", "Name");
+  form.appendChild(name);
+
+  const rating = document.createElement("input");
+  rating.setAttribute("type", "text");
+  rating.setAttribute("id", "rating");
+  rating.setAttribute("name", "rating");
+  rating.setAttribute("placeholder", "Rating");
+  form.appendChild(rating);
+
+  const comment = document.createElement("textarea");
+  comment.setAttribute("name", "comments");
+  comment.setAttribute("id", "comment");
+  comment.setAttribute("rows", "10");
+  comment.setAttribute("placeholder", "Write a review");
+  comment.setAttribute("required", "true");
+  form.appendChild(comment);
+
+  const submit = document.createElement("button");
+  submit.setAttribute("class", "submit");
+  submit.innerText = "Save";
+  form.appendChild(submit);
+
+  const restaurantId = getParameterByName('id');
+  console.log(restaurantId);
+  submit.addEventListener("click", function(){
+    postReview(restaurantId);
+  });
 }
 
 /**
@@ -166,4 +212,30 @@ getParameterByName = (name, url) => {
   if (!results[2])
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+postReview = (restaurantId) => {
+  const username = document.getElementById("username").value;
+  const rating = document.getElementById("rating").value;
+  const comment = document.getElementById("comment").value;
+
+  let review = {
+    restaurant_id: restaurantId,
+    name: username,
+    rating: rating,
+    comments: comment,
+  }
+  console.log(review);
+  
+  fetch(`http:/localhost:1337/reviews/`, {
+    method: 'post',
+    body: JSON.stringify(review)
+  })
+  .then(res => res.json())
+  .then(res => {
+    console.log(res);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 }

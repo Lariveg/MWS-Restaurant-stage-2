@@ -298,6 +298,36 @@ nav h1 a {
   width: 100%;
   text-align: center;
 }
+
+#reviews-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+#reviews-form h2{
+  margin-top: 10px;
+}
+
+#reviews-form input {
+  width: 85%;
+  margin-bottom: 5px;
+}
+
+#reviews-form textarea {
+  width: 85%;
+  resize: none;
+}
+
+#reviews-form button {
+  background-color: #3397DB;
+  color: #fff;
+  border-color: #3397db;
+  width: 85%;
+}
+
 #reviews-container h2 {
   color: #f58500;
   font-size: 2em;

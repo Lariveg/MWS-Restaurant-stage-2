@@ -1,4 +1,4 @@
-let cacheName = 'v39';
+let cacheName = 'v50';
 let cacheFiles = [
     './',
     './index.html',
