@@ -157,10 +157,8 @@ createFormHTML = () => {
   submit.innerText = "Save";
   form.appendChild(submit);
 
-  const restaurantId = getParameterByName('id');
-  console.log(restaurantId);
   submit.addEventListener("click", function(){
-    postReview(restaurantId);
+    postReview();
   });
 }
 
@@ -215,6 +213,7 @@ getParameterByName = (name, url) => {
 }
 
 postReview = (restaurantId) => {
+  const restaurantId = getParameterByName('id');
   const username = document.getElementById("username").value;
   const rating = document.getElementById("rating").value;
   const comment = document.getElementById("comment").value;
@@ -227,7 +226,7 @@ postReview = (restaurantId) => {
   }
   console.log(review);
   
-  fetch(`http:/localhost:1337/reviews/`, {
+  fetch(`http://localhost:1337/reviews/`, {
     method: 'post',
     body: JSON.stringify(review)
   })
