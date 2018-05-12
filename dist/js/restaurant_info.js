@@ -126,12 +126,6 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   createFormHTML();
 }
 
-/* <input type="text" id="username" name="name" placeholder="Name">
-<input type="text" id="rating" name="rating" placeholder="Rating">
-<input name="restaurant_id" value="">
-<textarea name="comments" id="comment" required rows="10" cols="50" placeholder="Write a review"></textarea>
-<input type="submit" value="Save"> */
-
 createFormHTML = () => {
   const form = document.getElementById("form-review");
 
@@ -220,6 +214,7 @@ postReview = (restaurant = self.restaurant) => {
     rating: rating,
     comments: comment,
   }
+
   fetch(`http://localhost:1337/reviews/`, {
     method: 'POST',
     body: JSON.stringify(review),
@@ -228,11 +223,13 @@ postReview = (restaurant = self.restaurant) => {
     }
   })
   .then(res => res.json())
-  .then(res => {
-    console.log(res);
+  .then(review => {
+    console.log(review);
+    restaurant.reviews.push(review);
   })
   .catch(error => {
     console.log(error);
   });
+
 
 }
