@@ -321,11 +321,15 @@ nav h1 a {
   resize: none;
 }
 
+#reviews-form form {
+  width: 100%;
+}
+
 #reviews-form button {
   background-color: #3397DB;
   color: #fff;
   border-color: #3397db;
-  width: 85%;
+  width: 86%;
 }
 
 #reviews-container h2 {

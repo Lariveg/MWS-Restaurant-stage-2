@@ -8,6 +8,11 @@ skipLink.addEventListener('click', function(){
   name.focus();
 });
 
+const submit = document.querySelector(".submit");
+submit.addEventListener("click", function(){
+  postReview();
+});
+
 /**
  * Initialize Google map, called from HTML.
  */
@@ -151,15 +156,6 @@ createFormHTML = () => {
   comment.setAttribute("placeholder", "Write a review");
   comment.setAttribute("required", "true");
   form.appendChild(comment);
-
-  const submit = document.createElement("button");
-  submit.setAttribute("class", "submit");
-  submit.innerText = "Save";
-  form.appendChild(submit);
-
-  submit.addEventListener("click", function(){
-    postReview();
-  });
 }
 
 /**
@@ -212,8 +208,8 @@ getParameterByName = (name, url) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-postReview = (restaurantId) => {
-  const restaurantId = getParameterByName('id');
+postReview = (restaurant = self.restaurant) => {
+  const restaurantId = restaurant.id;
   const username = document.getElementById("username").value;
   const rating = document.getElementById("rating").value;
   const comment = document.getElementById("comment").value;
@@ -224,11 +220,12 @@ postReview = (restaurantId) => {
     rating: rating,
     comments: comment,
   }
-  console.log(review);
-  
   fetch(`http://localhost:1337/reviews/`, {
-    method: 'post',
-    body: JSON.stringify(review)
+    method: 'POST',
+    body: JSON.stringify(review),
+    headers: {
+      'content-type': 'application/json'
+    }
   })
   .then(res => res.json())
   .then(res => {
@@ -237,4 +234,5 @@ postReview = (restaurantId) => {
   .catch(error => {
     console.log(error);
   });
+
 }
