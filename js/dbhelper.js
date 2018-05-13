@@ -29,6 +29,22 @@ class DBHelper {
     });
   }
 
+  static saveReview(id, review) {
+    return DBHelper.openDatabase().then(function(db){
+      var tx = db.transaction('restaurantDb', 'readwrite');
+      var store = tx.objectStore('restaurantDb');
+      return store.openCursor();
+    }).then(function checkId(cursor){
+      if(!cursor) return;
+      if(cursor.id === id) {
+
+        cursor.reviews.push(review);
+        return cursor.reviews;
+      }
+      return cursor.continue().then(checkId);
+    });
+  }
+
   static saveToDatabase(data){
     return DBHelper.openDatabase().then(function(db){
       if(!db) return;

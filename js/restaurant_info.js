@@ -62,7 +62,7 @@ fetchRestaurantFromURL = (callback) => {
  */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   name.innerHTML = restaurant.name;
-
+  console.log(restaurant);
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
 
@@ -117,6 +117,8 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     container.appendChild(noReviews);
     return;
   }
+
+  console.log(reviews);
   const ul = document.getElementById('reviews-list');
   reviews.forEach(review => {
     ul.appendChild(createReviewHTML(review));
@@ -208,16 +210,27 @@ postReview = (restaurant = self.restaurant) => {
   const rating = document.getElementById("rating").value;
   const comment = document.getElementById("comment").value;
 
-  let review = {
+  let reviewForPost = {
     restaurant_id: restaurantId,
     name: username,
     rating: rating,
     comments: comment,
   }
 
+  let review = {
+    name: username,
+    rating: rating,
+    comments: comment,
+    date: new Date().getTime().toDateString()
+  }
+
+  DBHelper.saveReview(restaurant.id, review).then(function(reviews){
+    console.log(reviews);
+  });
+
   fetch(`http://localhost:1337/reviews/`, {
     method: 'POST',
-    body: JSON.stringify(review),
+    body: JSON.stringify(reviewForPost),
     headers: {
       'content-type': 'application/json'
     }
@@ -225,7 +238,8 @@ postReview = (restaurant = self.restaurant) => {
   .then(res => res.json())
   .then(review => {
     console.log(review);
-    restaurant.reviews.push(review);
+    const ul = document.getElementById('reviews-list');
+    ul.appendChild(createReviewHTML(review));
   })
   .catch(error => {
     console.log(error);
