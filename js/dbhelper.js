@@ -22,30 +22,38 @@ class DBHelper {
     }
 
     return idb.open('restaurantDb', 1, function(upgradeDb){
-      var store = upgradeDb.createObjectStore('restaurantDb', {
-        keyPath: 'id'
-      });
-      store.createIndex('by-id', 'id');
+        var store = upgradeDb.createObjectStore('restaurantDb', {
+          keyPath: 'id'
+        });
+        store.createIndex('by-id', 'id');
+        var reviewStore = upgradeDb.createObjectStore('reviewsDb', {keyPath: 'id'});
     });
   }
 
-  static saveReview(id, review) {
+  static saveReviewToDatabase(reviews) {
     return DBHelper.openDatabase().then(function(db){
-      var tx = db.transaction('restaurantDb', 'readwrite');
-      var store = tx.objectStore('restaurantDb');
-      return store.openCursor();
-    }).then(function checkId(cursor){
-      if(!cursor) return;
-      if(cursor.id === id) {
+      if(!db) return;
 
-        cursor.reviews.push(review);
-        return cursor.reviews;
-      }
-      return cursor.continue().then(checkId);
+      var tx = db.transaction('restaurantDb', 'readwrite');
+      var store = tx.objectStore('reviewsDb');
+      reviews.forEach(function(review){
+        store.put(review);
+      });
+      return tx.complete;
     });
   }
 
-  static saveToDatabase(data){
+  static addReviewsFromAPI() {
+    return fetch("http://localhost:1337/reviews/")
+      .then(function(response){
+        return response.json();
+    }).then(reviews => {
+      DBHelper.saveReviewToDatabase(reviews);
+      return reviews;
+    });
+  }
+
+  static saveRestaurantToDatabase(data){
     return DBHelper.openDatabase().then(function(db){
       if(!db) return;
 
@@ -63,7 +71,7 @@ class DBHelper {
       .then(function(response){
         return response.json();
     }).then(restaurants => {
-      DBHelper.saveToDatabase(restaurants);
+      DBHelper.saveRestaurantToDatabase(restaurants);
       return restaurants;
     });
   }

@@ -115,6 +115,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     const noReviews = document.createElement('p');
     noReviews.innerHTML = 'No reviews yet!';
     container.appendChild(noReviews);
+    createFormHTML();
     return;
   }
 
@@ -209,6 +210,7 @@ postReview = (restaurant = self.restaurant) => {
   const username = document.getElementById("username").value;
   const rating = document.getElementById("rating").value;
   const comment = document.getElementById("comment").value;
+  let date = new Date().getTime().toDateString();
 
   let reviewForPost = {
     restaurant_id: restaurantId,
@@ -221,7 +223,7 @@ postReview = (restaurant = self.restaurant) => {
     name: username,
     rating: rating,
     comments: comment,
-    date: new Date().getTime().toDateString()
+    date: date
   }
 
   DBHelper.saveReview(restaurant.id, review).then(function(reviews){
@@ -238,8 +240,8 @@ postReview = (restaurant = self.restaurant) => {
   .then(res => res.json())
   .then(review => {
     console.log(review);
-    const ul = document.getElementById('reviews-list');
-    ul.appendChild(createReviewHTML(review));
+    // const ul = document.getElementById('reviews-list');
+    // ul.appendChild(createReviewHTML(review));
   })
   .catch(error => {
     console.log(error);
