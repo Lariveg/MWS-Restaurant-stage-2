@@ -22,11 +22,11 @@ class DBHelper {
     }
 
     return idb.open('restaurantDb', 1, function(upgradeDb){
-        var store = upgradeDb.createObjectStore('restaurantDb', {
-          keyPath: 'id'
-        });
-        store.createIndex('by-id', 'id');
-        var reviewStore = upgradeDb.createObjectStore('reviewsDb', {keyPath: 'id'});
+      var store = upgradeDb.createObjectStore('restaurantDb', {
+        keyPath: 'id'
+      });
+      store.createIndex('by-id', 'id');
+      var reviewStore = upgradeDb.createObjectStore('reviewsDb', {keyPath: 'id'});
     });
   }
 
@@ -34,7 +34,7 @@ class DBHelper {
     return DBHelper.openDatabase().then(function(db){
       if(!db) return;
 
-      var tx = db.transaction('restaurantDb', 'readwrite');
+      var tx = db.transaction('reviewsDb', 'readwrite');
       var store = tx.objectStore('reviewsDb');
       reviews.forEach(function(review){
         store.put(review);
@@ -43,8 +43,8 @@ class DBHelper {
     });
   }
 
-  static addReviewsFromAPI() {
-    return fetch("http://localhost:1337/reviews/")
+  static addReviewsFromAPI(id) {
+    return fetch(`http://localhost:1337/reviews/?restaurant_id=${id}`)
       .then(function(response){
         return response.json();
     }).then(reviews => {

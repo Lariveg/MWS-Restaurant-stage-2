@@ -54,6 +54,9 @@ fetchRestaurantFromURL = (callback) => {
       fillRestaurantHTML();
       callback(null, restaurant)
     });
+    DBHelper.addReviewsFromAPI(id).then(function(reviews){
+      fillReviewsHTML(reviews);
+    })
   }
 }
 
@@ -79,7 +82,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     fillRestaurantHoursHTML();
   }
   // fill reviews
-  fillReviewsHTML();
+  
 }
 
 /**
@@ -105,17 +108,17 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+fillReviewsHTML = (reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
   container.appendChild(title);
+  createFormHTML();
 
   if (!reviews) {
     const noReviews = document.createElement('p');
     noReviews.innerHTML = 'No reviews yet!';
     container.appendChild(noReviews);
-    createFormHTML();
     return;
   }
 
@@ -125,8 +128,33 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     ul.appendChild(createReviewHTML(review));
   });
   container.appendChild(ul);
+}
 
-  createFormHTML();
+/**
+ * Create review HTML and add it to the webpage.
+ */
+createReviewHTML = (review) => {
+  const li = document.createElement('li');
+  const name = document.createElement('p');
+  name.innerHTML = review.name;
+  li.appendChild(name);
+
+  const date = document.createElement('p');
+  const serverDate = new Date(review.createdAt);
+  date.innerHTML = serverDate.toDateString();
+  
+ 
+  li.appendChild(date);
+
+  const rating = document.createElement('p');
+  rating.innerHTML = `Rating: ${review.rating}`;
+  li.appendChild(rating);
+
+  const comments = document.createElement('p');
+  comments.innerHTML = review.comments;
+  li.appendChild(comments);
+
+  return li;
 }
 
 createFormHTML = () => {
@@ -153,30 +181,6 @@ createFormHTML = () => {
   comment.setAttribute("placeholder", "Write a review");
   comment.setAttribute("required", "true");
   form.appendChild(comment);
-}
-
-/**
- * Create review HTML and add it to the webpage.
- */
-createReviewHTML = (review) => {
-  const li = document.createElement('li');
-  const name = document.createElement('p');
-  name.innerHTML = review.name;
-  li.appendChild(name);
-
-  const date = document.createElement('p');
-  date.innerHTML = review.date;
-  li.appendChild(date);
-
-  const rating = document.createElement('p');
-  rating.innerHTML = `Rating: ${review.rating}`;
-  li.appendChild(rating);
-
-  const comments = document.createElement('p');
-  comments.innerHTML = review.comments;
-  li.appendChild(comments);
-
-  return li;
 }
 
 /**
@@ -210,7 +214,8 @@ postReview = (restaurant = self.restaurant) => {
   const username = document.getElementById("username").value;
   const rating = document.getElementById("rating").value;
   const comment = document.getElementById("comment").value;
-  let date = new Date().getTime().toDateString();
+  let date = new Date();
+  console.log(date);
 
   let reviewForPost = {
     restaurant_id: restaurantId,
@@ -218,17 +223,6 @@ postReview = (restaurant = self.restaurant) => {
     rating: rating,
     comments: comment,
   }
-
-  let review = {
-    name: username,
-    rating: rating,
-    comments: comment,
-    date: date
-  }
-
-  DBHelper.saveReview(restaurant.id, review).then(function(reviews){
-    console.log(reviews);
-  });
 
   fetch(`http://localhost:1337/reviews/`, {
     method: 'POST',
@@ -240,8 +234,8 @@ postReview = (restaurant = self.restaurant) => {
   .then(res => res.json())
   .then(review => {
     console.log(review);
-    // const ul = document.getElementById('reviews-list');
-    // ul.appendChild(createReviewHTML(review));
+    const ul = document.getElementById('reviews-list');
+    ul.appendChild(createReviewHTML(review));
   })
   .catch(error => {
     console.log(error);

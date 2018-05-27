@@ -795,6 +795,33 @@
         "createdAt": "2018-05-17T10:34:34.881Z",
         "updatedAt": "2018-05-17T10:34:34.881Z",
         "id": 63
+      },
+      {
+        "restaurant_id": 1,
+        "name": "test",
+        "rating": "3",
+        "comments": "test",
+        "createdAt": "2018-05-27T09:28:57.665Z",
+        "updatedAt": "2018-05-27T09:28:57.665Z",
+        "id": 64
+      },
+      {
+        "restaurant_id": 2,
+        "name": "test",
+        "rating": "2",
+        "comments": "test",
+        "createdAt": "2018-05-27T09:30:11.921Z",
+        "updatedAt": "2018-05-27T09:30:11.921Z",
+        "id": 65
+      },
+      {
+        "restaurant_id": 1,
+        "name": "test 2",
+        "rating": "3",
+        "comments": "test",
+        "createdAt": "2018-05-27T11:13:20.809Z",
+        "updatedAt": "2018-05-27T11:13:20.809Z",
+        "id": 66
       }
     ]
   },
@@ -850,7 +877,7 @@
       "id": 10
     },
     "reviews": {
-      "id": 63
+      "id": 66
     }
   }
 }
